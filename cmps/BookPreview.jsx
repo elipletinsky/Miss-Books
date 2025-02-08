@@ -7,6 +7,7 @@ export function BookPreview({ book }) {
             <h2>{book.title}</h2>
             <h4>by {book.authors}</h4>
             <h5>Genres: {book.categories.join(', ')}</h5>
+            <h6>price: {book.listPrice.amount}</h6>
             
         </article>
     )

@@ -8,10 +8,10 @@ export function BookFilter({ filterBy, onSetFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
     useEffect(() => {
-        console.log('filterByToEdit:', filterByToEdit)
+        //console.log('filterByToEdit:', filterByToEdit)
         onSetFilter(filterByToEdit)
     }, [filterByToEdit])
-    //{ author: '', price: '', publishedDate: '', language: '', categories: '',isOnSale: ''}
+    //{ authors: '', minPrice: '', publishedDate: '',orderByPrice: false, language: '', categories: '',isOnSale: ''}
 
     function handleChange({ target }) {
         let { value, name: field } = target
@@ -45,16 +45,19 @@ export function BookFilter({ filterBy, onSetFilter }) {
     //     setFilterByToEdit(prevFilter => ({ ...prevFilter, minSpeed: value }))
     // }
 
-    const { authors, price, publishedDate, language, categories, isOnSale} = filterByToEdit
+    const { authors, minPrice, publishedDate, orderByPrice, language, categories, isOnSale} = filterByToEdit
     return (
-        <section className="car-filter">
+        <section className="book-filter">
             <h2>Filter Our Books</h2>
             <form>
                 <label htmlFor="authors">Author</label>
                 <input onChange={handleChange} value={authors} type="text" name="authors" id="authors" />
 
-                <label htmlFor="price">Price</label>
-                <input onChange={handleChange} value={price || ''} type="number" name="price" id="price" />
+                <label htmlFor="minPrice">Minimum Price</label>
+                <input onChange={handleChange} value={minPrice || ''} type="number" name="minPrice" id="minPrice" />
+
+                <label htmlFor="orderByPrice">By ascending Price</label>
+                <input onChange={handleChange} value={orderByPrice} type="checkbox" name="orderByPrice" id="orderByPrice" className="orderByPrice-checkbox" />
 
                 <button>Submit</button>
             </form>

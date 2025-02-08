@@ -140,17 +140,30 @@ export const bookService = {
 function query(filterBy = {}) {
     return storageService.query(BOOK_KEY)
         .then(books => {
-        console.log('books', genericBooks)
+        // console.log('books before filter', books)
             if (filterBy.authors) {
-              console.log('filterBy.authors:', filterBy.authors)
+                console.log('filterBy.authors:', filterBy.authors)
                 const regExp = new RegExp(`^${filterBy.authors}`, 'i')
 
                 books = books.filter(book => book.authors.some(author => regExp.test(author)))
-                console.log('filtered books by :',filterBy.authors, books)
+                // console.log('filtered books by :',filterBy.authors, books)
             }
-            if (filterBy.minSpeed) {
-                books = books.filter(car => car.speed >= filterBy.minSpeed)
+            if (filterBy.minPrice) {
+              console.log('filterBy.minPrice:', filterBy.minPrice)
+                books = books.filter(book => {
+                  const priceInShekels = convertToshekel(book.listPrice.amount, book.listPrice.currencyCode)
+                  return priceInShekels >= filterBy.minPrice
+                  })
             }
+            if(filterBy.orderByPrice){
+              console.log('filterBy.orderByPrice:', filterBy.orderByPrice)
+              books.sort((a, b) => {
+                const priceA = convertToshekel(a.listPrice.amount, a.listPrice.currencyCode)
+                const priceB = convertToshekel(b.listPrice.amount, b.listPrice.currencyCode)
+                return priceA - priceB
+            })
+            }
+            console.log('books after filter', books) 
             return books
         })
 }
@@ -179,9 +192,20 @@ function getEmptyBook(vendor = '', speed = '') {
 
 function getDefaultFilter() {
     // return { txt: '', minSpeed: '' }
-    return { authors: '', price: '', publishedDate: '', language: '', categories: '',isOnSale: ''}
+    return { authors: '', minPrice: '', publishedDate: '',orderByPrice: false, language: '', categories: '',isOnSale: ''}
 }
 
+function convertToshekel(amount, currencyCode) {
+  switch (currencyCode) {
+    case 'USD':
+      return amount * 3.2
+    case 'EUR':
+      return amount * 3.8
+    case 'ILS':
+      return amount
+  }
+
+}
 // {
 //   "id": "OXeMG8wNskc",
 //   "title": "Gwent",
