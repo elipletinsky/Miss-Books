@@ -8,11 +8,14 @@ export function BookFilter({ filterBy, onSetFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
     useEffect(() => {
+        console.log('filterByToEdit:', filterByToEdit)
         onSetFilter(filterByToEdit)
     }, [filterByToEdit])
+    //{ author: '', price: '', publishedDate: '', language: '', categories: '',isOnSale: ''}
 
     function handleChange({ target }) {
         let { value, name: field } = target
+        console.log('handleChange recived field:', field, 'value:', value)
         switch (target.type) {
             case 'range':
             case 'number':
@@ -22,6 +25,7 @@ export function BookFilter({ filterBy, onSetFilter }) {
                 value = target.checked
                 break
         }
+        console.log('handleChange changed field:', field, 'value:', value)
         setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
 
@@ -41,16 +45,16 @@ export function BookFilter({ filterBy, onSetFilter }) {
     //     setFilterByToEdit(prevFilter => ({ ...prevFilter, minSpeed: value }))
     // }
 
-    const { Author, Price } = filterByToEdit
+    const { authors, price, publishedDate, language, categories, isOnSale} = filterByToEdit
     return (
         <section className="car-filter">
             <h2>Filter Our Books</h2>
             <form>
-                <label htmlFor="Author">Author</label>
-                <input onChange={handleChange} value={Author} type="text" name="Author" id="Author" />
+                <label htmlFor="authors">Author</label>
+                <input onChange={handleChange} value={authors} type="text" name="authors" id="authors" />
 
-                <label htmlFor="Price">Price</label>
-                <input onChange={handleChange} value={Price || ''} type="number" name="Price" id="Price" />
+                <label htmlFor="price">Price</label>
+                <input onChange={handleChange} value={price || ''} type="number" name="price" id="price" />
 
                 <button>Submit</button>
             </form>

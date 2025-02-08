@@ -140,9 +140,13 @@ export const bookService = {
 function query(filterBy = {}) {
     return storageService.query(BOOK_KEY)
         .then(books => {
-            if (filterBy.txt) {
-                const regExp = new RegExp(filterBy.txt, 'i')
-                books = books.filter(car => regExp.test(car.vendor))
+        console.log('books', genericBooks)
+            if (filterBy.authors) {
+              console.log('filterBy.authors:', filterBy.authors)
+                const regExp = new RegExp(`^${filterBy.authors}`, 'i')
+
+                books = books.filter(book => book.authors.some(author => regExp.test(author)))
+                console.log('filtered books by :',filterBy.authors, books)
             }
             if (filterBy.minSpeed) {
                 books = books.filter(car => car.speed >= filterBy.minSpeed)
@@ -174,8 +178,26 @@ function getEmptyBook(vendor = '', speed = '') {
 
 
 function getDefaultFilter() {
-    return { txt: '', minSpeed: '' }
+    // return { txt: '', minSpeed: '' }
+    return { authors: '', price: '', publishedDate: '', language: '', categories: '',isOnSale: ''}
 }
+
+// {
+//   "id": "OXeMG8wNskc",
+//   "title": "Gwent",
+//   "subtitle": "The Witcher Card Game",
+//   "authors": ["CD Projekt Red"],
+//   "publishedDate": 2017,
+//   "description": "An in-depth guide to Gwent, the card game from the Witcher universe, detailing strategies, card descriptions, and the game's development history.",
+//   "pageCount": 240,
+//   "categories": ["Games", "Fantasy"],
+//   "thumbnail": "./assets/img/Gwent.jpg",
+//   "language": "en",
+//   "listPrice": {
+//     "amount": 109,
+//     "currencyCode": "EUR",
+//     "isOnSale": false
+//   }
 
 
 function _setNextPrevBookId(book) {
