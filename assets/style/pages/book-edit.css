@@ -1,16 +1,18 @@
-.car-edit {
+.book-edit {
     text-align: center;
 }
 
-.car-edit.loading {
+.book-edit.loading {
     opacity: 0.4;
     pointer-events: none;
 }
 
-.car-edit form {
+.book-edit form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: beige;
+    background-color: var(--gray3);
     font-size: 1.5rem;
     font-family: 'Edu VIC WA NT Beginner', cursive;
     width: 50vw;
@@ -18,11 +20,17 @@
     margin-top: 50px;
 }
 
-.car-edit form input {
+.book-edit form input {
     max-width: 300px;
     margin-bottom: 15px;
 }
 
+
+.missing-fields{
+    color: red;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
 .back-btn {
     background-color: white;
 

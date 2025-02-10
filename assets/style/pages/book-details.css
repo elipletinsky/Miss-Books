@@ -11,6 +11,15 @@
     font-size: 3em;
 }
 
+.book-details h2 {
+    color: var(--clr1);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: green;
+    text-align: center;
+    color: white;
+    font-size: 3em;
+}
+
 .book-details h5 {
     color: var(--clr2);
 }

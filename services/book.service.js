@@ -14,7 +14,7 @@ const genericBooks = [
     "description": "An in-depth guide to Gwent, the card game from the Witcher universe, detailing strategies, card descriptions, and the game's development history.",
     "pageCount": 240,
     "categories": ["Games", "Fantasy"],
-    "thumbnail": "./assets/img/Gwent.jpg",
+    "thumbnail": "../assets/img/Gwent.jpg",
     "language": "en",
     "listPrice": {
       "amount": 109,
@@ -31,7 +31,7 @@ const genericBooks = [
     "description": "Stephen Fry's comprehensive guide to writing poetry, offering insights into various poetic forms, meters, and techniques, encouraging readers to explore their poetic potential.",
     "pageCount": 384,
     "categories": ["Poetry", "Writing"],
-    "thumbnail": ".assets/img/Gwent.jpg",
+    "thumbnail": "../assets/img/The Ode Less Travelled.jpg",
     "language": "sp",
     "listPrice": {
       "amount": 44,
@@ -48,7 +48,7 @@ const genericBooks = [
     "description": "The first book in the Troubleshooters series, focusing on Navy SEAL Lieutenant Tom Paoletti as he uncovers a terrorist plot while reconnecting with his past love.",
     "pageCount": 400,
     "categories": ["Romance", "Military Fiction"],
-    "thumbnail": "assets/img/Gwent.jpg",
+    "thumbnail": "../assets/img/The Unsung Hero.jpg",
     "language": "he",
     "listPrice": {
       "amount": 108,
@@ -65,7 +65,7 @@ const genericBooks = [
     "description": "A historical account detailing the expansion and consolidation of the Russian Empire, written by the renowned British author Saki.",
     "pageCount": 320,
     "categories": ["History", "Politics"],
-    "thumbnail": "assets/img/Gwent.jpg",
+    "thumbnail": "../assets/img/The Rise Of The Russian Empire.jpg",
     "language": "en",
     "listPrice": {
       "amount": 30,
@@ -82,7 +82,7 @@ const genericBooks = [
     "description": "A young adult novel about Stanley Yelnats, a boy wrongfully sent to a detention camp where he uncovers a family curse and hidden treasure.",
     "pageCount": 233,
     "categories": ["Young Adult", "Adventure"],
-    "thumbnail": "assets/img/Gwent.jpgg",
+    "thumbnail": "../assets/img/Holes.jpg",
     "language": "sp",
     "listPrice": {
       "amount": 19,
@@ -99,7 +99,7 @@ const genericBooks = [
     "description": "An academic examination of historical and contemporary schisms in religious and political contexts, analyzing their causes and effects.",
     "pageCount": 400,
     "categories": ["History", "Religion"],
-    "thumbnail": "assets/img/Gwent.jpg",
+    "thumbnail": "../assets/img/Schisms.jpg",
     "language": "en",
     "listPrice": {
       "amount": 91,
@@ -116,7 +116,7 @@ const genericBooks = [
     "description": "A classic fantasy novel that follows an adventurer's journey into a mysterious lost civilization hidden within the Andes.",
     "pageCount": 320,
     "categories": ["Fantasy", "Adventure"],
-    "thumbnail": "assets/img/Gwent.jpg",
+    "thumbnail": "../assets/img/The Face In The Abyss.jpg",
     "language": "he",
     "listPrice": {
       "amount": 90,
@@ -125,7 +125,7 @@ const genericBooks = [
     }
   }
 ]
-
+//`../assets/img/${book.title}.jpg`
 _createBooks()
 
 export const bookService = {
@@ -133,7 +133,7 @@ export const bookService = {
     get,
     remove,
     save,
-    getEmptyCar: getEmptyBook,
+    getEmptyBook,
     getDefaultFilter,
 }
 
@@ -185,8 +185,23 @@ function save(book) {
     }
 }
 
-function getEmptyBook(vendor = '', speed = '') {
-    return { vendor, speed }
+function getEmptyBook() {
+    return {
+      title: '',
+      subtitle: '',
+      authors: '',
+      publishedDate: '',
+      description: '',
+      pageCount: '',
+      categories: '',
+      thumbnail: '',
+      language: '',
+      listPrice: {
+          amount: '',
+          currencyCode: '',
+          isOnSale: false
+      }
+  }
 }
 
 
@@ -206,22 +221,6 @@ function convertToshekel(amount, currencyCode) {
   }
 
 }
-// {
-//   "id": "OXeMG8wNskc",
-//   "title": "Gwent",
-//   "subtitle": "The Witcher Card Game",
-//   "authors": ["CD Projekt Red"],
-//   "publishedDate": 2017,
-//   "description": "An in-depth guide to Gwent, the card game from the Witcher universe, detailing strategies, card descriptions, and the game's development history.",
-//   "pageCount": 240,
-//   "categories": ["Games", "Fantasy"],
-//   "thumbnail": "./assets/img/Gwent.jpg",
-//   "language": "en",
-//   "listPrice": {
-//     "amount": 109,
-//     "currencyCode": "EUR",
-//     "isOnSale": false
-//   }
 
 
 function _setNextPrevBookId(book) {
@@ -231,6 +230,8 @@ function _setNextPrevBookId(book) {
         const prevBook = books[bookIdx - 1] ? books[bookIdx - 1] : books[books.length - 1]
         book.nextBook = nextBook.id
         book.prevBook = prevBook.id
+        console.log('_setNextPrevBookId nextBook:', nextBook)
+        console.log('_setNextPrevBookId book:', book)
         return book
     })
 }
@@ -239,27 +240,7 @@ function _createBooks() {
     let books = loadFromStorage(BOOK_KEY)
     
     if (!books || !books.length) {
-        // books = JSON.parse(genericBooks);
-        // console.log('books', books)
-        // books = [
-        //     _createBook('audu', 300),
-        //     _createBook('fiak', 120),
-        //     _createBook('subali', 50),
-        //     _createBook('mitsu', 150)
-        // ]
         saveToStorage(BOOK_KEY, genericBooks)
     }
-}
-
-// function _createBook(title, subtitle, authors, publishedDate, description, pageCount, categories, thumbnail, language, listPrice) {
-//   const book = getEmptyBook(vendor, speed)
-//   car.id = makeId()
-//   return car
-// }
-
-function _createBook(vendor, speed) {
-    const book = getEmptyBook(vendor, speed)
-    book.id = makeId()
-    return book
 }
 
