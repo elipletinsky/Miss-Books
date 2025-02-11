@@ -17,7 +17,7 @@ export function BookDetails() {
     function loadBook() {
         setBook(null)
         bookService.get(params.bookId)
-            .then(setBook)
+            .then((book)=>{setBook(book); console.log('book:', encodeURIComponent(book.thumbnail))})
             .catch(err => {
                 console.log('Cannot load Book:', err)
             })
@@ -25,7 +25,6 @@ export function BookDetails() {
 
     function onBack() {
         navigate('/book')
-        // navigate(-1)
     }
 
 
@@ -67,7 +66,9 @@ export function BookDetails() {
             <section>
                 {/* <img src={`../assets/img/${book.title}.jpg`} alt="car-image" /> */}
                 <img src={book.thumbnail} onError={(e) => 
-                    { e.target.onerror = null; e.target.src = '../assets/img/react.png'; }} alt="book-thumbnail" />
+                    { e.target.onerror = null;
+                        //e.target.src = '../assets/img/react.png';
+                       }} alt="book-thumbnail" />
                 
                 {book.listPrice.isOnSale && <h2>On Sale</h2>}
             </section>

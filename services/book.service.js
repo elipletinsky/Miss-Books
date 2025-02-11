@@ -14,7 +14,7 @@ const genericBooks = [
     "description": "An in-depth guide to Gwent, the card game from the Witcher universe, detailing strategies, card descriptions, and the game's development history.",
     "pageCount": 240,
     "categories": ["Games", "Fantasy"],
-    "thumbnail": "https://elipletinsky.github.io/Miss-Books/assets/img/Gwent.jpg",
+    "thumbnail": "../assets/img/Gwent.jpg",
     "language": "en",
     "listPrice": {
       "amount": 109,
@@ -31,7 +31,7 @@ const genericBooks = [
     "description": "Stephen Fry's comprehensive guide to writing poetry, offering insights into various poetic forms, meters, and techniques, encouraging readers to explore their poetic potential.",
     "pageCount": 384,
     "categories": ["Poetry", "Writing"],
-    "thumbnail": "https://elipletinsky.github.io/Miss-Books/assets/img/The Ode Less Travelled.jpg",
+    "thumbnail": "../assets/img/The Ode Less Travelled.jpg",
     "language": "sp",
     "listPrice": {
       "amount": 44,
@@ -48,7 +48,7 @@ const genericBooks = [
     "description": "The first book in the Troubleshooters series, focusing on Navy SEAL Lieutenant Tom Paoletti as he uncovers a terrorist plot while reconnecting with his past love.",
     "pageCount": 400,
     "categories": ["Romance", "Military Fiction"],
-    "thumbnail": "https://elipletinsky.github.io/Miss-Books/assets/img/The Unsung Hero.jpg",
+    "thumbnail": "../assets/img/The Unsung Hero.jpg",
     "language": "he",
     "listPrice": {
       "amount": 108,
@@ -65,7 +65,7 @@ const genericBooks = [
     "description": "A historical account detailing the expansion and consolidation of the Russian Empire, written by the renowned British author Saki.",
     "pageCount": 320,
     "categories": ["History", "Politics"],
-    "thumbnail": "https://elipletinsky.github.io/Miss-Books/assets/img/The Rise Of The Russian Empire.jpg",
+    "thumbnail": "../assets/img//The Rise Of The Russian Empire.jpg",
     "language": "en",
     "listPrice": {
       "amount": 30,
@@ -82,7 +82,7 @@ const genericBooks = [
     "description": "A young adult novel about Stanley Yelnats, a boy wrongfully sent to a detention camp where he uncovers a family curse and hidden treasure.",
     "pageCount": 233,
     "categories": ["Young Adult", "Adventure"],
-    "thumbnail": "https://elipletinsky.github.io/Miss-Books/assets/img/Holes.jpg",
+    "thumbnail": "../assets/img//Holes.jpg",
     "language": "sp",
     "listPrice": {
       "amount": 19,
@@ -99,7 +99,7 @@ const genericBooks = [
     "description": "An academic examination of historical and contemporary schisms in religious and political contexts, analyzing their causes and effects.",
     "pageCount": 400,
     "categories": ["History", "Religion"],
-    "thumbnail": "https://elipletinsky.github.io/Miss-Books/assets/img/Schisms.jpg",
+    "thumbnail": "../assets/img/Schisms.jpg",
     "language": "en",
     "listPrice": {
       "amount": 91,
@@ -116,7 +116,7 @@ const genericBooks = [
     "description": "A classic fantasy novel that follows an adventurer's journey into a mysterious lost civilization hidden within the Andes.",
     "pageCount": 320,
     "categories": ["Fantasy", "Adventure"],
-    "thumbnail": "https://elipletinsky.github.io/Miss-Books/assets/img/The Face In The Abyss.jpg",
+    "thumbnail": "../assets/img/The Face In The Abyss.jpg",
     "language": "he",
     "listPrice": {
       "amount": 90,
