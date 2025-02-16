@@ -17,10 +17,11 @@ export function BookEdit() {
 
     useEffect(() => {
         if (bookId) loadBook()
-    }, [bookId,bookToEdit])
+    }, [bookId])
 
     function loadBook() {
         setIsLoading(true)
+        console.log("load book")
         bookService.get(bookId)
             .then(setBookToEdit)
             .catch(err => {
