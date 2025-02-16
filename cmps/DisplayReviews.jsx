@@ -1,6 +1,6 @@
 import { StarRating } from "./StarRating.jsx";
 const { useState, useEffect } = React;
-export function DisplayReviews({ reviews }) {
+export function DisplayReviews({ reviews ="" }) {
 
     const [sortDate, setSortDate] = useState('newest')
     const [displayRating, setDisplayRating] = useState();
@@ -41,7 +41,7 @@ export function DisplayReviews({ reviews }) {
             </div>
           </div>
           <ul>
-            {filteredReviews.map((review) => (
+            {filteredReviews && filteredReviews.map((review) => (
               <li key={review.fullName}>
                 <section className="review-item">
                   <p>

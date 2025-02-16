@@ -135,6 +135,7 @@ export const bookService = {
     save,
     getEmptyBook,
     getDefaultFilter,
+    getFilterFromSrcParams,
     searchForGoogleBook,
     addReview
 }
@@ -256,6 +257,17 @@ function convertToshekel(amount, currencyCode) {
 
 }
 
+function getFilterFromSrcParams(searchParams){
+  console.log("searchParams", searchParams)
+  const authors = searchParams.get('authors') || ''
+  const minPrice = searchParams.get('minPrice') || ''
+  const orderByPrice = searchParams.get('orderByPrice') || false
+  return {
+    authors,
+    minPrice,
+    orderByPrice
+  }
+}
 
 function _setNextPrevBookId(book) {
     return query().then((books) => {
