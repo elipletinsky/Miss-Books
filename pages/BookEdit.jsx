@@ -1,6 +1,6 @@
 
 import { bookService } from "../services/book.service.js"
-
+import { AddGoogleBook } from "../cmps/AddGoogleBook.jsx"
 const { useState, useEffect } = React
 const { useNavigate, useParams, Link } = ReactRouterDOM
 
@@ -17,7 +17,7 @@ export function BookEdit() {
 
     useEffect(() => {
         if (bookId) loadBook()
-    }, [bookId])
+    }, [bookId,bookToEdit])
 
     function loadBook() {
         setIsLoading(true)
@@ -114,16 +114,16 @@ export function BookEdit() {
         return str.replace(/\b\w/g, char => char.toUpperCase())
     }
 
-    function addTarget(target) {
-        if (newCategory.trim()) {
-            const capitalizedCategory = capitalizeWords(newCategory.trim())
-            setBookToEdit((prevBook) => ({
-                ...prevBook,
-                categories: [...prevBook.categories, capitalizedCategory]
-            }))
-            setNewCategory('')
-        }
-    }
+    // function addTarget(target) {
+    //     if (newCategory.trim()) {
+    //         const capitalizedCategory = capitalizeWords(newCategory.trim())
+    //         setBookToEdit((prevBook) => ({
+    //             ...prevBook,
+    //             categories: [...prevBook.categories, capitalizedCategory]
+    //         }))
+    //         setNewCategory('')
+    //     }
+    // }
 
     function addCategory() {
         if (newCategory.trim()) {
@@ -147,25 +147,42 @@ export function BookEdit() {
         }
     }
 
+    function getBookFromGoogle(book) {
+        //setBookToEdit(book)
+        setBookToEdit((prevBook) => ({
+            ...prevBook,
+            ...book
+        }));
+        console.log('bookToEdit:', bookToEdit);
+        
+        // setNewAuthor(book.authors)
+        // setNewCategory(book.categories)
+    }
+
     const currentYear = new Date().getFullYear()
     const years = Array.from(new Array(currentYear - 1900 + 1), (val, index) => 1900 + index).reverse()
     const languages = ["en", "he", "sp", "fr", "de", "it", "ru", "zh", "ja", "ko"]
-
-    const { title, subtitle, authors, publishedDate, description, pageCount, categories, thumbnail, language, listPrice } = bookToEdit
+    
+    const { title, subtitle, authors, publishedDate, description, pageCount, categories,
+         thumbnail, language, listPrice } = bookToEdit
+    const titleName = title != '' ? title : "No Title";
     const loadingClass = isLoading ? 'loading' : ''
     return (
         <section className={`book-edit ${loadingClass}`}>
+            <AddGoogleBook 
+            getBookFromGoogle={getBookFromGoogle}
+            ></AddGoogleBook>
             <h1>{bookId ? 'Edit' : 'Add'} Book</h1>
             <form onSubmit={onSaveBook}>
                 <label htmlFor="title">Title</label>
-                <input value={title} onChange={handleChange} type="text" name="title" id="title" />
+                <textarea className="title-input" value={title} onChange={handleChange} type="text" name="title" id="title" />
 
                 <label htmlFor="subtitle">Subtitle</label>
-                <input value={subtitle} onChange={handleChange} type="text" name="subtitle" id="subtitle" />
+                <textarea className="title-input" value={subtitle} onChange={handleChange} type="text" name="subtitle" id="subtitle" />
 
                 <label htmlFor="authors">Authors</label>
-                <div>
-                    <input value={newAuthor} onChange={handleAuthorChange} type="text" name="newAuthor" id="newAuthor" />
+                <div style={{display: 'block', flexDirection: 'column', width: '100%', alignSelf: 'center'}}>
+                    <textarea className="title-input" value={newAuthor} onChange={handleAuthorChange} type="text" name="newAuthor" id="newAuthor" />
                     <button type="button" onClick={addAuthor}>Add Author</button>
                 </div>
                 <ul>
@@ -183,14 +200,14 @@ export function BookEdit() {
                 </select>
 
                 <label htmlFor="description">Description</label>
-                <textarea value={description} onChange={handleChange} name="description" id="description"></textarea>
+                <textarea className="description-input" value={description} onChange={handleChange} name="description" id="description"></textarea>
 
                 <label htmlFor="pageCount">Page Count</label>
                 <input value={pageCount} onChange={handleChange} type="number" name="pageCount" id="pageCount" />
 
                  <label htmlFor="categories">Categories</label>
-                <div>
-                    <input value={newCategory} onChange={handleCategoryChange} type="text" name="newCategory" id="newCategory" />
+                <div style={{display: 'block', flexDirection: 'column', width: '100%', alignSelf: 'center'}}>
+                    <textarea className="title-input" value={newCategory} onChange={handleCategoryChange} type="text" name="newCategory" id="newCategory" />
                     <button type="button" onClick={addCategory}>Add Category</button>
                 </div>
                 <ul>
@@ -200,7 +217,7 @@ export function BookEdit() {
                 </ul>
 
                 <label htmlFor="thumbnail">Add Thumbnail Url</label>
-                <input value={thumbnail} onChange={handleChange} type="text" name="thumbnail" id="thumbnail" />
+                <textarea className="Url-input" value={thumbnail} onChange={handleChange} type="url" name="thumbnail" id="thumbnail" />
 
                 <label htmlFor="language">Language</label>
                 {/* language === "" ? 'choose language' : language */}

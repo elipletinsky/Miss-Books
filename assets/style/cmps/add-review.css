@@ -1,0 +1,16 @@
+.add-review {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--gray2);
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.add-review form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}

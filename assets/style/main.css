@@ -22,4 +22,8 @@
 @import "cmps/book-list.css";
 @import "cmps/book-preview.css";
 @import "cmps/not-found.css";
+@import "cmps/add-google-book.css";
+@import "cmps/star-rating.css";
+@import "cmps/add-review.css";
+@import "cmps/display-reviews.css";
 

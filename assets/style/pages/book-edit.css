@@ -21,11 +21,26 @@
 }
 
 .book-edit form input {
-    max-width: 300px;
+    width: 40%;
+    margin-bottom: 15px;
+
+}
+.title-input{
+    width: 90%;
+    height: 60px;
     margin-bottom: 15px;
 }
 
-
+.description-input{
+    width: 90%;
+    height: 100px;
+    margin-bottom: 15px;
+}
+.Url-input{
+    width: 90%;
+    height: 50px;
+    margin-bottom: 15px;
+}
 .missing-fields{
     color: red;
     font-size: 1.2rem;

@@ -1,11 +1,26 @@
 .book-details {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-bottom: 15vh;
+}
+
+.content-container{
+    display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
     padding-bottom: 15vh;
 }
 
+.content-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-bottom: 15vh;
+}
 .book-details h1 {
     color: var(--clr1);
     font-size: 3em;
@@ -28,3 +43,5 @@
     display: block;
     margin: auto;
 }
+
+

@@ -1,0 +1,35 @@
+.display-reviews{
+    
+}
+
+.display-reviews ul {
+    list-style-type: decimal;
+    padding: 0;
+}
+
+.display-reviews li {
+    margin-bottom: 1em;
+    padding: 1em;
+}
+
+.review-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid #ccc; /* Adjust the border width, style, and color as needed */
+  padding: 15px; /* Optional: Add padding to create space inside the border */
+  border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+}
+  
+  .review-item p {
+    margin: 1;
+  }
+
+  .filter-by-rating{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc; /* Adjust the border width, style, and color as needed */
+    padding: 15px; /* Optional: Add padding to create space inside the border */
+    border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+  }

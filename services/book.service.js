@@ -135,6 +135,40 @@ export const bookService = {
     save,
     getEmptyBook,
     getDefaultFilter,
+    searchForGoogleBook,
+    addReview
+}
+
+async function searchForGoogleBook(query){
+  const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data.items || []; // Return the list of books
+    } catch (error) {
+        console.error("Error fetching books:", error);
+        return [];
+    }
+  // console.log('searchForGoogleBook bookToEdit:', name)
+  // return fetch(`https://www.googleapis.com/books/v1/volumes?printType=books&q=${name}`)
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     console.log('searchForGoogleBook data:', data)
+  //     return data
+  //   })
+  //   .catch(err => {
+  //     console.log('Cannot get GoogleBook:', err)
+  //   })
+}
+
+function addReview(bookId, review) {
+    return get(bookId)
+        .then(book => {
+            if (!book.reviews) book.reviews = []
+            book.reviews.push(review)
+            return save(book)
+        })      
+
 }
 
 function query(filterBy = {}) {
