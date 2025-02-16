@@ -46,9 +46,13 @@ export function debounce(func, time = 500) {
 }
 
 export function getBaseUrl() {
-    const { protocol, hostname, port } = window.location;
-    return `${protocol}//${hostname}${port ? `:${port}` : ''}`;
+    const { protocol, hostname, port, pathname } = window.location;
+    const path = pathname.split('/').slice(0, -1).join('/');
+    return `${protocol}//${hostname}${port ? `:${port}` : ''}${path}`;
 }
+
+// const { protocol, hostname, port } = window.location;
+//     return `${protocol}//${hostname}${port ? `:${port}` : ''}`;
 
 export function getTruthyValues(obj) {
     const newObj = {}
