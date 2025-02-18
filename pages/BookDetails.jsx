@@ -1,7 +1,6 @@
 import { bookService } from "../services/book.service.js";
 import { LongTxt } from "../cmps/LongTxt.jsx";
 import {AddReview} from '../cmps/AddReview.jsx'
-import { StarRating } from '../cmps/StarRating.jsx';
 import { DisplayReviews } from "../cmps/DisplayReviews.jsx";
 
 const { useState, useEffect } = React;
@@ -9,7 +8,6 @@ const { useParams, useNavigate, Link } = ReactRouterDOM;
 
 export function BookDetails() {
   const [book, setBook] = useState(null);
-  const [reviews, setReviews] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -22,8 +20,7 @@ export function BookDetails() {
     bookService
       .get(params.bookId)
       .then((book) => {
-        setBook(book)//.then((book) => {setReviews(book.reviews)});
-        console.log(" BookDetails book:", book);
+        setBook(book)
       })
       .catch((err) => {
         console.log("Cannot load Book:", err);
@@ -54,8 +51,14 @@ export function BookDetails() {
   function onAddReview(review) {
     bookService.addReview(params.bookId, review).then((book) => {
       setBook(book);
-      setReviews(book.reviews);
     });
+  }
+
+  function onRemoveReview(reviewId){
+    bookService.removeReview(params.bookId, reviewId).then((book) => {
+      setBook(book);
+    });
+
   }
 
   if (!book) return <div className="loader">Loading...</div>;
@@ -90,14 +93,13 @@ export function BookDetails() {
               <Link to={`/book/${book.nextBook}`}>Next Book</Link>
             </button>
           </section>
-          <DisplayReviews reviews={book.reviews} />
+          <DisplayReviews reviews={book.reviews} onRemoveReview={onRemoveReview} />
         </section>
         <section>
           <img
             src={book.thumbnail}
             onError={(e) => {
               e.target.onerror = null;
-              //e.target.src = '../assets/img/react.png';
             }}
             alt="book-thumbnail"
           />
@@ -106,7 +108,6 @@ export function BookDetails() {
           <AddReview onAddReview={onAddReview}/>
         </section>
       </section>
-      {/* <AddReview onAddReview={onAddReview}/> */}
     </section>
   );
 }

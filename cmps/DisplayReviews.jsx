@@ -1,6 +1,6 @@
 import { StarRating } from "./StarRating.jsx";
 const { useState, useEffect } = React;
-export function DisplayReviews({ reviews ="" }) {
+export function DisplayReviews({ reviews ="", onRemoveReview }) {
 
     const [sortDate, setSortDate] = useState('newest')
     const [displayRating, setDisplayRating] = useState();
@@ -42,7 +42,7 @@ export function DisplayReviews({ reviews ="" }) {
           </div>
           <ul>
             {filteredReviews && filteredReviews.map((review) => (
-              <li key={review.fullName}>
+              <li key={review.id}>
                 <section className="review-item">
                   <p>
                     <strong>Name:</strong> {review.fullName}
@@ -54,6 +54,7 @@ export function DisplayReviews({ reviews ="" }) {
                   <p>
                     <strong>Posted At:</strong> {review.postedAt}
                   </p>
+                  <button onClick={()=> onRemoveReview(review.id)}>Delete Review</button>
                 </section>
               </li>
             ))}

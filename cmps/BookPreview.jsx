@@ -10,11 +10,12 @@ export function BookPreview({ book }) {
                     console.log("failed to load",book.thumbnail,e);
                     //e.target.src = '../assets/img/react.png';
                   }} alt="book-thumbnail" />
-            <h2>{book.title}</h2>
-            <h4>by {book.authors}</h4>
-            <h5>Genres: {book.categories.join(', ')}</h5>
-            <h6>price: {book.listPrice.amount}</h6>
-            
+            <div className="preview-info">
+                <h2>{book.title}</h2>
+                <h4>by {book.authors}</h4>
+                <h5>Genres: {book.categories.join(', ')}</h5>
+                <h6>price: {book.listPrice.amount}</h6>
+            </div>
         </article>
     )
 }

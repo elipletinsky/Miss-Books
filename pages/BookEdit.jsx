@@ -30,11 +30,18 @@ export function BookEdit() {
             .finally(() => setIsLoading(false))
     }
 
-    function onSaveBook(ev) {
+    async function onSaveBook(ev) {
         ev.preventDefault()
         console.log('bookToEdit:', bookToEdit)
+        
         if(!checkFormValidity()){
             return
+        }
+        if(!bookId){
+            if(await isBookExists()){
+                alert("This Book already exists in database")
+                return
+            }
         }
         console.log('trying to save book:', bookToEdit)
         bookService.save(bookToEdit)
@@ -73,6 +80,28 @@ export function BookEdit() {
             return false
         }else{
             return true
+        }
+    }
+
+    async function isBookExists() {
+        try {
+            const books = await bookService.query();
+            const bookExists = books.some(book => 
+                book.title === bookToEdit.title &&
+                book.subtitle === bookToEdit.subtitle &&
+                JSON.stringify(book.authors) === JSON.stringify(bookToEdit.authors)
+            );
+            
+            if (bookExists) {
+                console.log("bookToEdit",bookToEdit)
+                console.log("Book already exists in database",bookExists);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (err) {
+            console.error('Error checking if book exists:', err);
+            return false;
         }
     }
 

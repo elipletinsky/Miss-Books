@@ -1,4 +1,4 @@
-import { bookService } from "../services/book.service.js"
+
 
 const { useState, useEffect } = React
 
@@ -29,21 +29,6 @@ export function BookFilter({ filterBy, onSetFilter }) {
         setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
 
-    // function handleChangePrimitive({ target }) {
-    //     const value = target.value
-    //     const field = target.name
-    //     setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
-    // }
-
-    // function handleTxtChange(ev) {
-    //     const value = ev.target.value
-    // setFilterByToEdit(prevFilter => ({ ...prevFilter, txt: value }))
-    // }
-
-    // function handleMinSpeedChange(ev) {
-    //     const value = ev.target.value
-    //     setFilterByToEdit(prevFilter => ({ ...prevFilter, minSpeed: value }))
-    // }
 
     const { authors, minPrice, publishedDate, orderByPrice, language, categories, isOnSale} = filterByToEdit
     return (

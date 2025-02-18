@@ -4,7 +4,6 @@ import { storageService } from './async-storage.service.js'
 const BOOK_KEY = 'bookDB'
 const baseUrl = getBaseUrl();
 
-// https://elipletinsky.github.io/assets/img/Gwent.jpg
 const genericBooks = [
   {
     "id": "OXeMG8wNskc",
@@ -126,7 +125,6 @@ const genericBooks = [
     }
   }
 ]
-//`../assets/img/${book.title}.jpg`
 _createBooks()
 
 export const bookService = {
@@ -138,7 +136,9 @@ export const bookService = {
     getDefaultFilter,
     getFilterFromSrcParams,
     searchForGoogleBook,
-    addReview
+    addReview,
+    removeReview,
+    resetBooks
 }
 
 async function searchForGoogleBook(query){
@@ -163,14 +163,30 @@ async function searchForGoogleBook(query){
   //   })
 }
 
+function resetBooks(){
+  saveToStorage(BOOK_KEY, genericBooks)
+  return loadFromStorage(BOOK_KEY)
+}
+
+
 function addReview(bookId, review) {
     return get(bookId)
         .then(book => {
             if (!book.reviews) book.reviews = []
-            book.reviews.push(review)
+            book.reviews.push({...review, id: makeId()})
             return save(book)
         })      
 
+}
+
+function removeReview(bookId, reviewId){
+  return get(bookId)
+        .then(book => {
+            if (book.reviews){ 
+              book.reviews = book.reviews.filter((review) => review.id != reviewId)
+            }
+            return save(book)
+        }) 
 }
 
 function query(filterBy = {}) {
@@ -215,8 +231,10 @@ function remove(bookId) {
 
 function save(book) {
     if (book.id) {
+        console.log(`update=>storageService.put:`,book)
         return storageService.put(BOOK_KEY, book)
     } else {
+        console.log(`save new=>storageService.post:`,book)
         return storageService.post(BOOK_KEY, book)
     }
 }
@@ -259,7 +277,7 @@ function convertToshekel(amount, currencyCode) {
 }
 
 function getFilterFromSrcParams(searchParams){
-  console.log("searchParams", searchParams)
+  //console.log("searchParams", searchParams)
   const authors = searchParams.get('authors') || ''
   const minPrice = searchParams.get('minPrice') || ''
   const orderByPrice = searchParams.get('orderByPrice') || false
@@ -277,8 +295,8 @@ function _setNextPrevBookId(book) {
         const prevBook = books[bookIdx - 1] ? books[bookIdx - 1] : books[books.length - 1]
         book.nextBook = nextBook.id
         book.prevBook = prevBook.id
-        console.log('_setNextPrevBookId nextBook:', nextBook)
-        console.log('_setNextPrevBookId book:', book)
+        // console.log('_setNextPrevBookId nextBook:', nextBook)
+        // console.log('_setNextPrevBookId book:', book)
         return book
     })
 }
@@ -288,6 +306,7 @@ function _createBooks() {
     
     if (!books || !books.length) {
         saveToStorage(BOOK_KEY, genericBooks)
+        return loadFromStorage(BOOK_KEY)
     }
 }
 

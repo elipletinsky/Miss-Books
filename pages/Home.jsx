@@ -1,4 +1,4 @@
-import { getBaseUrl } from './util.service.js'
+import { getBaseUrl } from '../services/util.service.js'
 
 export function Home() {
 

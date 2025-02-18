@@ -1,0 +1,19 @@
+
+.book-index {
+    display: block;
+}
+.index-actions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.list-filter-container{
+    display: flex;
+    flex-direction: row;
+}
+.list-container{
+    flex-grow: 2;
+}
+.filter-container{
+    flex-grow: 1;
+}
